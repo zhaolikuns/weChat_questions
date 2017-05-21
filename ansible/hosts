@@ -1,0 +1,16 @@
+[target]
+target ansible_host=43.240.138.135 ansible_user=root
+
+[target:vars]
+projectname = question
+projectdir = /srv/{{ projectname }}
+giturl = http://gaobin:gaobin@git.topdy.cn/wangaiguo/question.git
+
+dbname = question
+dbuser = question
+dbpass = question
+
+nginx_server_name = question-app.topdy.cn
+
+bindaddr_uwsgi = 127.0.0.1:9113
+

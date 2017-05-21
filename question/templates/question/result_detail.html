@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+{% load question %}
+
+{% block title %}试卷答案{% endblock %}
+
+{% block extra_head %}
+    <style>
+        .answer .tc_wt_box ul li{
+            position: relative;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            width: 100%;
+            text-align: left;
+            float: left;
+            font-size: 0.4444rem;
+            color: #fff;
+            cursor: pointer;
+            margin-top: 0.426667rem;
+        }
+
+        .skin_main .test .tc_wt_box{
+            display: block !important;
+        }
+        .tc_wt_box ul li > label{
+            display: block;
+            width:82%;
+            -webkit-border-radius:0.5066666rem;
+            -moz-border-radius:0.5066666rem;
+            border-radius:0.5066666rem;
+            border:0.05333rem solid #ff514e;
+            padding:0.24rem 0.48rem;
+            font-size: 0.5rem;
+            font-family: PingFangSC-Medium;
+            color: #000;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            background-color: #fff;
+            margin-left:0.746666rem;
+        }
+
+        .answer .show-history p{
+            width:100%;
+            line-height:0.6rem;
+            text-align: center;
+            font-size: 0.48rem;
+        }
+
+        .houTaiAnswer{
+            background-color: #c00;
+        }
+
+        table caption{
+            text-align: center;
+
+        }
+        table{
+            width:100%;
+        }
+        table thead tr td{
+            line-height:0.6rem;
+            font-size: 0.24rem;
+            text-align: center;
+        }
+        table tbody tr td{
+            line-height:0.6rem;
+            font-size: 0.24rem;
+            text-align: center;
+        }
+        table tbody .important{
+            color: #c00;
+        }
+    </style>
+
+{% endblock %}
+
+{% block main %}
+
+{#    <div>#}
+{#        <ul>#}
+{#            {% for question in paper.question.all %}#}
+{#                <li>#}
+{#                    <h1>题目{{ question.name }} - 答题结果: {% user_result_desc result question %}</h1>#}
+{#                    <ul>#}
+{#                        {% for ans in question.answer.all %}#}
+{#                            <li>{{ ans.content }} - 是否正确答案:{{ ans.is_right }}#}
+{#                                - {% is_user_selected result question ans as success %}</li>#}
+{#                        {% endfor %}#}
+{#                    </ul>#}
+{#                </li>#}
+{#            {% endfor %}#}
+{#        </ul>#}
+{#    </div>#}
+
+{#    <div>#}
+{#        <h1>试卷: {{ paper.title }}</h1>#}
+{##}
+{#        <p>分数: {{ result.score }}</p>#}
+{#        <p>答题时间: {{ result.btime }}</p>#}
+{#        <p>正确率: {{ result.correct_rate }}%</p>#}
+{#        <p>正确数量: {{ result.count_right }}</p>#}
+{#        <p>错误数量: {{ result.count_wrong }}</p>#}
+{#        <p>半对半错数量: {{ result.count_halfright }}</p>#}
+{#    </div>#}
+{#{% endblock %}#}
+{##}
+{##}
+{#{% block main %}#}
+
+    <div class="answer">
+
+        <table border="1" cellpadding="50%" cellspacing="80">
+            <caption>试卷:{{ paper.title }}</caption>
+            <thead>
+                <tr>
+                    <td>答题分数</td>
+                    <td>正确数量</td>
+                    <td>错误数量</td>
+                    <td>半对半错数量</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ result.score }}</td>
+                    <td>{{ result.count_right }}</td>
+                    <td>{{ result.count_wrong }}</td>
+                    <td>{{ result.count_halfright }}</td>
+                </tr>
+                <tr>
+                    <td>答题时间</td>
+                    <td colspan="3">{{ result.btime }}</td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="important">* 红色背景颜色表示的是原始的正确答案，对号是您自己选的答案 。</td>
+                </tr>
+            </tbody>
+        </table>
+
+        {% for question in paper.question.all %}
+
+            <div class="tc_wt_box six block-center">
+                <h2 class="">
+                    {{ forloop.counter }}、{{ question.name }}
+                    - 答题结果:{% user_result_desc result question %}
+                </h2>
+                <ul>
+                 {% for ans in question.answer.all %}
+                     {% is_user_selected result question ans as success %}
+                     {% if success and ans.is_right %}
+                            <li class="one houTaiAnswer">
+                                <label>
+                                    <input
+                                            {% if question_initial.is_multiple %}
+                                                type="checkbox"
+                                            {% else %}
+                                                type="radio"
+                                            {% endif %}
+
+                                                name="{{ form.answer.html_name }}" value="{{ answer.id }}" id="form-{{ answer.id }}" class="agreeRule" disabled checked>
+                                    <label class="form-label" for="form-{{ answer.id }}" id="ruleLabel"></label>
+                                    {{ ans.content }}
+
+                                </label>
+                            </li>
+                     {% elif success %}
+                         <li class="one">
+                                <label>
+                                    <input
+                                            {% if question_initial.is_multiple %}
+                                                type="checkbox"
+                                            {% else %}
+                                                type="radio"
+                                            {% endif %}
+
+                                                name="{{ form.answer.html_name }}" value="{{ answer.id }}" id="form-{{ answer.id }}" class="agreeRule" disabled checked>
+                                    <label class="form-label" for="form-{{ answer.id }}" id="ruleLabel"></label>
+                                    {{ ans.content }}
+
+                                </label>
+                            </li>
+                     {% elif ans.is_right %}
+                        <li class="one houTaiAnswer">
+                            <label>
+                                <input
+                                        {% if question_initial.is_multiple %}
+                                            type="checkbox"
+                                        {% else %}
+                                            type="radio"
+                                        {% endif %}
+
+                                            name="{{ form.answer.html_name }}" value="{{ answer.id }}" id="form-{{ answer.id }}" class="agreeRule" disabled>
+                                <label class="form-label" for="form-{{ answer.id }}" id="ruleLabel"></label>
+                                {{ ans.content }}
+
+                            </label>
+                        </li>
+                     {% else %}
+                        <li class="one">
+                                <label>
+                                    <input
+                                            {% if question_initial.is_multiple %}
+                                                type="checkbox"
+                                            {% else %}
+                                                type="radio"
+                                            {% endif %}
+
+                                                name="{{ form.answer.html_name }}" value="{{ answer.id }}" id="form-{{ answer.id }}" class="agreeRule" disabled>
+                                    <label class="form-label" for="form-{{ answer.id }}" id="ruleLabel"></label>
+                                    {{ ans.content }}
+
+                                </label>
+                        </li>
+                     {% endif %}
+                 {% endfor %}
+                </ul>
+            </div>
+
+
+        {% endfor %}
+    </div>
+
+{% endblock %}

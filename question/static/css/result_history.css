@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+.answer .tc_wt_box ul li{
+    position: relative;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    text-align: left;
+    float: left;
+    font-size: 0.4444rem;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 0.426667rem;
+}
+
+.skin_main .test .tc_wt_box{
+    display: block !important;
+}
+.tc_wt_box ul li > label{
+    display: block;
+    width:82%;
+    -webkit-border-radius:0.5066666rem;
+    -moz-border-radius:0.5066666rem;
+    border-radius:0.5066666rem;
+    border:0.05333rem solid #ff514e;
+    padding:0.24rem 0.48rem;
+    font-size: 0.5rem;
+    font-family: PingFangSC-Medium;
+    color: #000;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: #fff;
+    margin-left:0.746666rem;
+}
+
+.answer .show-history p{
+    width:100%;
+    line-height:0.6rem;
+    text-align: center;
+    font-size: 0.48rem;
+}
+
+.houTaiAnswer{
+    background-color: #c00;
+}

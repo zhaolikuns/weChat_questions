@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block title %}作答 - {{ paper.title }}{% endblock %}
+
+{#{% block main %}#}
+{#    <h1>答题 试卷: {{ paper.title }}</h1>#}
+{#    <form method="post">#}
+{#        {% csrf_token %}#}
+{#        {{ formset.management_form.as_p }}#}
+{#        <fieldset>#}
+{#                        {% for paper_detail in paper.detail.all %}#}
+{#                            <div style="background-color:#93ffae;margin: 10px;">#}
+{#                                <input name="question_index" type="hidden" value="{{ paper_detail.question.id }}">#}
+{#                            <p>{{ paper_detail.question.name }}</p>#}
+{#                            <ul>#}
+{#                            {% for answer in paper_detail.question.answer.all %}#}
+{#                                <li>#}
+{#                                <input name="">#}
+{#                                </li>#}
+{#                            {% endfor %}#}
+{#                            </ul>#}
+{#                            </div>#}
+{#                        {% endfor %}#}
+{##}
+{#            {% for form in formset.forms %}#}
+{#                <div style="background-color:#93ffae;margin: 10px;">#}
+{#                    {% with form.fields.question.initial as question_initial %}#}
+{#                        <input name="{{ form.question.html_name }}" type="hidden" value="{{ question_initial.id }}">#}
+{#                        <p>#}
+{#                            {{ question_initial.name }}#}
+{#                            {% if question_initial.is_multiple %}#}
+{#                                (多选题)#}
+{#                            {% else %}#}
+{#                                (单选题)#}
+{#                            {% endif %}#}
+{#                        </p>#}
+{#                        <ul>#}
+{#                            {% for answer in form.fields.answer.queryset %}#}
+{#                                <li>#}
+{#                                    <input#}
+{#                                            {% if question_initial.is_multiple %}#}
+{#                                                type="checkbox"#}
+{#                                            {% else %}#}
+{#                                                type="radio"#}
+{#                                            {% endif %}#}
+{##}
+{#                                                name="{{ form.answer.html_name }}" value="{{ answer.id }}">#}
+{#                                    {{ answer.content }}#}
+{#                                </li>#}
+{#                            {% endfor %}#}
+{#                        </ul>#}
+{#                    {% endwith %}#}
+{#                </div>#}
+{#            {% endfor %}#}
+{##}
+{#                        {% for form in formset.forms %}#}
+{#                            {{ form.as_p }}#}
+{#                        {% endfor %}#}
+{##}
+{#        </fieldset>#}
+{#        <input type="submit" value="提交">#}
+{#    </form>#}
+{#{% endblock %}#}
+
+{% block main %}
+{#    <div style="width:300px;background-color:black;color:red;">{{ formset.errors }}</div>#}
+    <form method="post" class="test-form">
+        <div class="answer">
+            {% csrf_token %}
+            {{ formset.management_form.as_p }}
+            {% for form in formset.forms %}
+                <div class="tc_wt_box six block-center">
+                    {% with form.fields.question.initial as question_initial %}
+                        <input name="{{ form.question.html_name }}" type="hidden" value="{{ question_initial.id }}">
+                        <!--数字显示-->
+                        <div class="number-show animated fadeInDown">
+                            <span class="price-number">{{ forloop.counter }}</span>/<span class="total-number">{{ formset.forms|length }}  </span>
+                        </div>
+
+                        <h2 class="animated fadeInDown" style="animation-delay: 0.5s;">
+                            {{ forloop.counter }}、
+                            {{ question_initial.name }}
+                            {% if question_initial.is_multiple %}
+                                (多选题)
+                            {% else %}
+                                (单选题)
+                            {% endif %}
+                        </h2>
+                        <ul class="paper-ul">
+                            {% for answer in form.fields.answer.queryset %}
+                                <li class="one clearFix-li animated fadeInLeft" bcolor="yellow" style="animation-delay: {%  widthratio forloop.counter 1 600 %}ms;">
+                                    <label>
+                                        <input
+                                                {% if question_initial.is_multiple %}
+                                                    type="checkbox"
+                                                {% else %}
+                                                    type="radio"
+                                                {% endif %}
+
+                                                    name="{{ form.answer.html_name }}" value="{{ answer.id }}" id="form-{{ answer.id }}" class="agreeRule">
+                                        <label class="form-label" for="form-{{ answer.id }}" id="ruleLabel"></label>
+                                        {{ answer.content }}
+{#                                        <label class="form-label" for="form-{{ answer.id }}"> {{ answer.content }} </label>#}
+
+                                    </label>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <!--按钮-->
+                        <div class="menu_container">
+                            {% if forloop.first %}
+                                <div class="btn_answer next on-center animated fadeInUp" style="animation-delay: {%  widthratio form.fields.answer.queryset|length|add:1 1 600%}ms;">
+                                    <a href="javascript:void(0);" title="">下一题 > </a>
+                                </div>
+                            {% elif forloop.last %}
+                                <div class="btn_answer prev animated fadeInLeft" style="animation-delay: {%  widthratio form.fields.answer.queryset|length|add:1 1 600%}ms;">
+                                    <a href="javascript:void(0);" title=""> < 上一题</a>
+                                </div>
+                                <div class="btn_answer submit-btn animated fadeInRight" style="animation-delay: {%  widthratio form.fields.answer.queryset|length|add:1 1 600%}ms;">
+                                    <input type="submit" name="" value="提交答题" class="btn-submit">
+                                </div>
+                            {% else %}
+                                <div class="btn_answer prev animated fadeInLeft" style="animation-delay: {%  widthratio form.fields.answer.queryset|length|add:1 1 600%}ms;">
+                                    <a href="javascript:void(0);" title=""> < 上一题</a>
+                                </div>
+                                <div class="btn_answer next animated fadeInRight" style="animation-delay: {%  widthratio form.fields.answer.queryset|length|add:1 1 600%}ms;">
+                                    <a href="javascript:void(0);" title="">下一题 > </a>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endwith %}
+                </div>
+            {% endfor %}
+    </div>
+    </form>
+
+{% endblock %}
+
+

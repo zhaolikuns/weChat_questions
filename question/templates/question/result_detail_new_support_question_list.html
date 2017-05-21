@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load question %}
+
+{% block title %}试卷答案{% endblock %}
+
+{% block main %}
+    <div>
+        <h1>试卷: {{ paper.title }}</h1>
+
+        <p>分数: {{ result.score }}</p>
+        <p>答题时间: {{ result.btime }}</p>
+        <p>正确率: {{ result.correct_rate }}%</p>
+        <p>正确数量: {{ result.count_right }}</p>
+        <p>错误数量: {{ result.count_wrong }}</p>
+        <p>半对半错数量: {{ result.count_halfright }}</p>
+        <div>
+            <ul>
+
+                {% for question in paper.question.all %}
+                    <li>
+                        <h1>题目{{ question.name }} - 答题结果: {% user_result_desc result question %}</h1>
+                        <ul>
+                            {% for ans in question.answer.all %}
+                                <li>{{ ans.content }} - 是否正确答案:{{ ans.is_right }}
+                                    - {% is_user_selected result question ans %}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}
+
+            </ul>
+        </div>
+    </div>
+{% endblock %}

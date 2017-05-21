@@ -1,0 +1,8 @@
+
+http://pip.mmgear.org/hmiku/hmiku-1.7.3-py3-none-any.whl
+http://pip.mmgear.org/mmwxapi/mmwxapi-0.3.2-py3-none-any.whl
+
+django>=1.8,<1.9
+Pillow
+psycopg2
+celery>=4.0

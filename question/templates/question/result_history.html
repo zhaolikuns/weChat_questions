@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+
+{#{% block main %}#}
+{#    <div>#}
+{#    试卷: {{ paper.title }}#}
+{#        <ul>#}
+{#            {% for result in resultl %}#}
+{#                <li><a href="{% url 'show_result_detail' paper.id result.id %}">本次答题分数: {{ result.score }} | 日期: {{ result.btime }}</a></li>#}
+{#            {% endfor %}#}
+{#        </ul>#}
+{#    </div>#}
+{#{% endblock %}#}
+
+
+
+
+{% block title %}{{ paper.title }}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/history_lists.css' %}">
+    <style>
+        html,body{
+            background-color: #fff !important;
+            background-image: none !important;
+        }
+    </style>
+{% endblock %}
+
+
+{% block main %}
+
+    <ul class="test-ares">
+
+        <!--循环列表-->
+         {% for history in history_list %}
+             {% if history.last_result %}
+                <li class="list-contents">
+                    <p class="list-contents-img">
+
+                        {% if forloop.counter < 10 %}
+                            0{{ forloop.counter }}
+                        {% else %}
+                            {{ forloop.counter }}
+                        {% endif %}
+
+                    </p>
+                    <div class="list-contents-right">
+                        <p>{{ history.last_result.title }}</p>
+                        <p>{{ history.last_result.btime }}</p>
+                        <p class="hidden scores">{{ history.last_result.score }}</p>
+                        <p class="hidden answer-number">{{ history.last_result.count_right|add:history.last_result.count_halfright }}</p>
+                        <p class="hidden url-hidden">{% url 'show_result_detail' history.paper.id history.last_result.id %}</p>
+                    </div>
+                </li>
+             {% else %}
+                <li class="list-contents">未作答</li>
+            {% endif %}
+         {% endfor %}
+        <!--End 循环列表-->
+
+        <!--遮罩层-->
+        <div class="answer-shadow" id="answer-shadow">
+            <div class="answer">
+                <div class="block-center end-block-page">
+                    <div class="result-show">
+                        <h2>
+                            共获得
+                            <span class="total"></span>
+                            <span class="total-suffix">分</span>
+                        </h2>
+
+                        <h3 class="result-success">
+                            恭喜你在本次答题中答对
+                            <span class="success-number"></span>题
+                        </h3>
+
+                        <!--close-btn-->
+                        <span class="close-btn"></span>
+
+                    </div>
+
+                    <div class="imgs"></div>
+
+                    <!--按钮-->
+                    <div class="menu_container">
+                        <div class="btn_answer on-center">
+                            <a href="javascript:void(0);" title="" class="url-href">查看题目</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--End 遮罩层-->
+    </ul>
+
+{% endblock %}

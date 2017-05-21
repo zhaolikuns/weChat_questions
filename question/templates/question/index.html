@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block title %}{{ paper.title }}{% endblock %}
+
+{% block extra_head %}
+    <style>
+        .answer .index-door{
+            width: 100%;
+            height: 10rem;
+            position: fixed;
+            left:0;
+            right:0;
+            top:0;
+            bottom:0;
+            z-index: 20;
+        }
+
+    .answer .index-door a{
+        display: block;
+        width: 3.66666rem;
+        height: 1.09333rem;
+        background: url(../img/btns.png) no-repeat;
+        background-size: contain;
+        font-size: 0.45333rem;
+    }
+    </style>
+{% endblock %}
+
+
+
+
+{% block main %}
+
+    <div class="answer">
+        <div class="index-door">
+            <a href="" title="" alt="">答题试卷</a>
+
+            <a href="" title="" alt="">答题历史</a>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,9 @@
+---
+- hosts: target
+
+  roles:
+    - role: mogami/roles/python3-app-django
+      extra_rpm:
+        - mm-postgresql
+        - openssl-devel
+

@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+*{
+    padding:0px;
+    margin: 0px;
+}
+
+.header-style{
+    background: url("../img/bg_img.png");
+}

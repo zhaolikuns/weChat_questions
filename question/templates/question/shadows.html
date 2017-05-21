@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load question %}
+
+
+
+{#{% block main %}#}
+{#    <div>#}
+{#    试卷: {{ paper.title }}#}
+{#        <ul>#}
+{#            {% for result in resultl %}#}
+{#                <li><a href="{% url 'show_result_detail' paper.id result.id %}">本次答题分数: {{ result.score }} | 日期: {{ result.btime }}</a></li>#}
+{#            {% endfor %}#}
+{#        </ul>#}
+{#    </div>#}
+{#{% endblock %}#}
+
+
+
+
+{% block title %}{{ paper.title }}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/history_lists.css' %}">
+{% endblock %}
+
+
+{% block main %}
+
+    <ul class="test-ares">
+
+        <!--循环列表-->
+         {% for result in resultl %}
+            <li class="list-contents">
+                <p class="list-contents-img">
+                    {{ forloop.counter }}
+                </p>
+                <div class="list-contents-right">
+                    <p>{{ paper.title }}</p>
+                    <p>{{ result.btime }}</p>
+                    <p class="hidden scores">{{ result.score }}</p>
+                </div>
+            </li>
+         {% endfor %}
+        <!--End 循环列表-->
+
+        <!--遮罩层-->
+        <div class="answer-shadow" id="answer-shadow">
+            <div class="answer">
+                <div class="block-center end-block-page">
+                    <div class="result-show">
+                        <h2>
+                            共获得
+                            <span class="total">{{ result.score }}</span>
+                            <span class="total-suffix">分</span>
+                        </h2>
+
+                        <h3 class="result-success">
+                            恭喜你在本次答题中答对
+                            <span class="success-number">{{ result.count_right }}</span>题
+                        </h3>
+
+                        <!--close-btn-->
+                        <span class="close-btn"></span>
+
+                    </div>
+
+                    <div class="imgs"></div>
+
+
+                    <!--按钮-->
+                    <div class="menu_container">
+                        <div class="btn_answer on-center">
+                            <a href="javascript:void(0);" title="">查看题目</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--End 遮罩层-->
+    </ul>
+
+{% endblock %}

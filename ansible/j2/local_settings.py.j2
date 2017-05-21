@@ -1,0 +1,26 @@
+from question_answer.settings import BASE_DIR
+
+DEBUG = True
+
+SECRET_KEY = "{{ secret_key }}"
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "HOST": "localhost",
+        "NAME": "{{ dbname }}",
+        "USER": "{{ dbuser }}",
+        "PASSWORD": "{{ dbpass }}",
+    }
+}
+
+THIRD_APPID = "wxeecf2eabec7e0074"
+THIRD_APPSECRET = "f52e8e4391a0963aa5e6e2db11fac1e6"
+THIRD_TOKEN = "147asgaw7a"
+THIRD_AESKEY = "R1Vdz1XIfHmzLSZbwG3GSeIhRU3hgzXG45cSbl85ppz"
+
+MP_APPID = "wx64760d402ede4ea0"
+
+MMWXAPI_SAURL = f"sqlite:///{BASE_DIR}/mmwxapi.db"
+
+

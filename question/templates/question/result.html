@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{#{% block main %}#}
+{#    <h1>试卷 - {{ paper.title }} - 总分</h1>#}
+{#    <div>#}
+{#        试卷总分: {{ result.score }}#}
+{#    </div>#}
+{#{% endblock %}#}
+{##}
+
+
+{% block title %}{{ paper.title }}{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="{% static 'css/history_lists.css' %}">
+    <link rel="stylesheet" href="{% static 'css/result.css' %}">
+
+    <style>
+        .skin_main .test{
+            overflow: auto;
+            position: static;
+        }
+    </style>
+
+{% endblock %}
+
+
+
+
+{% block main %}
+
+    <div class="answer">
+        <div class="block-center end-block-page">
+            <div class="result-show">
+                <h2>
+                    共获得
+                    <span class="total">{{ result.score }}</span>
+                    <span class="total-suffix">分</span>
+                </h2>
+
+                <h3 class="result-success">
+                    恭喜你在本次答题中答对
+                    <span class="success-number">{{ result.count_right|add:result.count_halfright }}</span>题
+                </h3>
+
+            </div>
+
+            <div class="imgs"></div>
+
+            <!--按钮-->
+{#            <div class="menu_container">#}
+{#                <div class="btn_answer prev">#}
+{#                    <a href="javascript:void(0);" title="">分享好友</a>#}
+{#                </div>#}
+{#                <div class="btn_answer next">#}
+{#                    <a href="javascript:void(0);" title="">再来一次</a>#}
+{#                </div>#}
+{#            </div>#}
+        </div>
+    </div>
+
+{% endblock %}

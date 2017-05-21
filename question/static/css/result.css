@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+div,a,span,p,
+h1, h2, h3{
+    padding:0;
+    margin:0;
+}
+.skin_main .test .end-block-page .result-show{
+    height:4.96rem;
+    width:9.2rem;
+    text-align: center;
+    font-size: 0.48rem;
+    color: #000;
+    line-height: 0.8rem;
+    -webkit-border-radius:0.9259rem;
+    -moz-border-radius:0.9259rem;
+    border-radius:0.9259rem;
+    border:0.05333rem solid #000;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: #ff514e;
+    margin: 3.093333rem auto 0;
+    padding:1.2rem 0.25rem 0;
+
+}
+.result-show h2{
+    font-family: PingFangSC-Semibold;
+    font-size:0.78666667rem;
+    color: #000;
+}
+.result-show h3{
+    font-family: PingFangSC-Medium;
+    font-size:0.5866667rem;
+    color: #000;
+    margin-top: 0.8rem;
+}
+.result-show h2 .total{
+    color: #feca6c;
+}
+.menu_container{
+    margin: 1.96rem auto 0;
+    width:9.2rem;
+}
